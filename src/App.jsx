@@ -4,8 +4,18 @@ const App = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
-  const [editId, setEditId] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(()=>{
+    const savedData = localStorage.getItem("userData")
+    return savedData ? JSON.parse(savedData) : []
+  });
+
+  const [editId, setEditId] = useState(null)
+
+
+  useEffect(() => {
+    localStorage.setItem("userData", JSON.stringify(data))
+  }, [data])
+  
 
   const sumbitHandler = () => {
     if (!name || !email || !number) {
